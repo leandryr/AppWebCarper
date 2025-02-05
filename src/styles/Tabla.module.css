@@ -1,0 +1,112 @@
+/* Tabla.module.css */
+
+.tableContainer {
+  overflow-x: auto;
+  margin: 20px 0;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.addRowButton {
+  background: #2980b9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+.addRowButton:hover {
+  background: #3498db;
+}
+
+/* Estilos para pantallas pequeñas (menos de 768px) */
+@media (max-width: 768px) {
+  .tableContainer {
+    padding: 10px;
+    overflow-x: visible;
+  }
+
+  table {
+    min-width: 100%;
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: block;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: none;
+    width: 100% !important;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 15px;
+    color: #2c3e50;
+    flex-shrink: 0;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  .addRowButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Mejoras para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  td {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  td::before {
+    margin-bottom: 5px;
+  }
+}

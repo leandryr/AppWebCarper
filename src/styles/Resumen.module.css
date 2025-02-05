@@ -1,0 +1,97 @@
+/* Resumen.module.css */
+
+.resumen {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px;
+  transition: all 0.3s ease;
+}
+
+.resumen h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #2980b9;
+  padding-bottom: 0.5rem;
+}
+
+.resumen p {
+  color: #34495e;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.totalAmount {
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  color: #27ae60 !important;
+  background-color: #f0fdf4;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 1.5rem 0 !important;
+}
+
+.resumen ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.resumen li {
+  padding: 10px;
+  margin: 8px 0;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resumen li::before {
+  content: "✓";
+  color: #2980b9;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resumen {
+    padding: 1.5rem;
+    margin: 20px 10px;
+  }
+
+  .resumen h2 {
+    font-size: 1.5rem;
+  }
+
+  .resumen p {
+    font-size: 1rem;
+  }
+
+  .totalAmount {
+    font-size: 1.2rem !important;
+    padding: 10px;
+  }
+
+  .resumen li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resumen {
+    padding: 1rem;
+  }
+
+  .resumen h2 {
+    font-size: 1.3rem;
+  }
+
+  .totalAmount {
+    font-size: 1.1rem !important;
+  }
+}
