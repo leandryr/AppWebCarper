@@ -14,11 +14,14 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: center; /* Justifica los elementos de manera uniforme */
 }
 
 .checkboxLabel {
   display: flex;
   align-items: center;
+  gap: 5px; /* Espaciado entre el switch y el texto */
+  margin: 0 15px; /* Añadido margen igual a ambos lados */
 }
 
 .switch {
@@ -41,7 +44,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #e1e8f0;
+  background-color: #bcbdbe;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 34px;
 }
@@ -86,7 +89,7 @@ input:disabled + .slider {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: red;
 }
 
@@ -103,7 +106,8 @@ input:disabled + .slider {
     font-size: 0.8rem;
   }
 }
-/* Ejemplo de estilos para inputs */
+
+/* Estilos para inputs */
 input, select {
   padding: 8px 12px;
   border: 1px solid #ddd;
@@ -117,4 +121,69 @@ input:focus {
   outline: none;
   border-color: #2980b9;
   box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.2);
+}
+
+/* Estilos para la sección de Comidas */
+.comidasContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alineado a la izquierda en pantallas pequeñas */
+  justify-content: center;
+  width: 100%;
+}
+
+.comidasTitle {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: left; /* Alineado a la izquierda */
+  display: none; /* Ocultar en pantallas grandes */
+}
+
+.checkboxGroup {
+  display: flex;
+  justify-content: flex-start; /* Los controles estarán uno al lado del otro en pantallas grandes */
+  gap: 20px;
+  width: 100%; /* Asegura que se utilice todo el espacio disponible */
+}
+
+.checkboxLabel {
+  display: flex;
+  flex-direction: column; /* Colocar el texto debajo del switch */
+  align-items: center;
+  gap: 5px; /* Espaciado entre el switch y el texto */
+  justify-content: center;
+  margin: 0; /* Eliminar márgenes adicionales */
+}
+
+/* Mostrar "Comidas" solo en pantallas pequeñas */
+@media (max-width: 600px) {
+  .comidasContainer {
+    padding: 10px;
+  }
+  .checkboxGroup {
+    flex-direction: column; /* Colocar los controles uno debajo del otro en pantallas pequeñas */
+    gap: 15px; /* Espaciado vertical para pantallas pequeñas */
+    width:10%;
+  }
+
+  .comidasTitle {
+    display: block; /* Asegura que el título solo aparezca en pantallas pequeñas */
+  }
+}
+
+/* En pantallas grandes, alinear "Comidas" y los controles en una fila */
+@media (min-width: 601px) {
+  .comidasTitle {
+    display: none; /* El título no se verá en pantallas grandes */
+  }
+
+  .checkboxGroup {
+    flex-direction: row; /* Coloca los controles uno al lado del otro */
+    justify-content: center; /* Alinea los controles centrados */
+  }
+
+  .checkboxLabel {
+    flex-direction: row; /* Coloca el texto al lado del switch */
+  
+  }
 }

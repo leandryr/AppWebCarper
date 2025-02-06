@@ -49,6 +49,15 @@ function Fila({ index, actualizarFila, eliminarFila }) {
     setDatos({ ...datos, edad });
   };
 
+  // Validación de formulario al momento de enviar
+  const validateForm = () => {
+    if (!datos.nombre || !datos.edad || !datos.fecha || !datos.transporte || (!datos.cena && !datos.almuerzo)) {
+      alert("Por favor, completa todos los campos obligatorios.");
+      return false;
+    }
+    return true;
+  };
+
   return (
     <tr className={styles.nuevoRegistro}>
       <td>
@@ -67,8 +76,9 @@ function Fila({ index, actualizarFila, eliminarFila }) {
           className={styles.select}
           value={datos.edad}
           onChange={handleEdadChange}
+          required
         >
-          <option value="">Seleccionar Edad</option>
+          <option value="">Indique edad: Solo si es menor de 18</option>
           {[...Array(18).keys()].map((i) => (
             <option key={i + 1} value={i + 1}>
               {i + 1}
@@ -92,8 +102,9 @@ function Fila({ index, actualizarFila, eliminarFila }) {
               cena: fecha === "Dom" ? false : datos.cena,
             });
           }}
+          required
         >
-          <option value="">Seleccionar</option>
+          <option value="">Selecciona Fecha</option>
           <option value="Sab">Sábado</option>
           <option value="Dom">Domingo</option>
         </select>
@@ -104,43 +115,50 @@ function Fila({ index, actualizarFila, eliminarFila }) {
           className={styles.select}
           value={datos.transporte}
           onChange={(e) => setDatos({ ...datos, transporte: e.target.value })}
+          required
         >
-          <option value="">Seleccionar</option>
+          <option value="">Selecciona Transporte</option>
           <option value="Bus">Bus</option>
           <option value="Auto">Auto Propio</option>
         </select>
       </td>
 
       <td>
-        <div className={styles.checkboxGroup}>
-          <label className={styles.checkboxLabel}>
-            <div className={styles.switch}>
-              <input
-                type="checkbox"
-                checked={datos.cena}
-                disabled={datos.fecha === "Dom"}
-                onChange={(e) =>
-                  setDatos({ ...datos, cena: e.target.checked })
-                }
-              />
-              <span className={styles.slider} />
-            </div>
-            <span>Cena</span>
-          </label>
+        {/* Comidas - Título y controles centrados */}
+        <div className={styles.comidasContainer}>
+          <h3 className={styles.comidasTitle}>Seleccionar las Comidas</h3>
+          <div className={styles.checkboxGroup}>
+            <label className={styles.checkboxLabel}>
+              <div className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={datos.cena}
+                  disabled={datos.fecha === "Dom"}
+                  onChange={(e) =>
+                    setDatos({ ...datos, cena: e.target.checked })
+                  }
+                  required
+                />
+                <span className={styles.slider} />
+              </div>
+              <span>Cena</span>
+            </label>
 
-          <label className={styles.checkboxLabel}>
-            <div className={styles.switch}>
-              <input
-                type="checkbox"
-                checked={datos.almuerzo}
-                onChange={(e) =>
-                  setDatos({ ...datos, almuerzo: e.target.checked })
-                }
-              />
-              <span className={styles.slider} />
-            </div>
-            <span>Almuerzo</span>
-          </label>
+            <label className={styles.checkboxLabel}>
+              <div className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={datos.almuerzo}
+                  onChange={(e) =>
+                    setDatos({ ...datos, almuerzo: e.target.checked })
+                  }
+                  required
+                />
+                <span className={styles.slider} />
+              </div>
+              <span>Almuerzo</span>
+            </label>
+          </div>
         </div>
       </td>
 
@@ -152,7 +170,7 @@ function Fila({ index, actualizarFila, eliminarFila }) {
           onClick={eliminarFila}
           aria-label="Eliminar fila"
         >
-          ✕
+        ←
         </button>
       </td>
     </tr>

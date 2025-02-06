@@ -39,7 +39,7 @@ function Tabla({ setTotal }) {
             <th>Edad</th>
             <th>Fecha</th>
             <th>Transporte</th>
-            <th>Comida</th>
+            <th>Seleccionar las Comidas</th>
             <th>Subtotal</th>
             <th>Acciones</th>
           </tr>
@@ -56,7 +56,7 @@ function Tabla({ setTotal }) {
         </tbody>
       </table>
       <button className={styles.addRowButton} onClick={agregarFila}>
-        + Agregar Fila
+        + Agregar Asistente
       </button>
     </div>
   );
