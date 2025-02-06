@@ -15,7 +15,7 @@ function App() {
       </header>
       <Formulario setRegistros={setRegistros} setTotal={setTotal} />
       <footer className={styles.footer}>
-        <p>Propiedad de Daniel SH | Creado por <a href="https://rivasdev.com" target="_blank" rel="noopener noreferrer">RivaDev</a></p>
+        <p>Propiedad de Carper | Creado por <a href="https://rivasdev.com" target="_blank" rel="noopener noreferrer">RivaDev</a></p>
         <p>2025. Todos los derechos reservados </p>
       </footer>
     </div>
