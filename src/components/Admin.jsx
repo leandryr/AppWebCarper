@@ -21,12 +21,22 @@ function Admin() {
 
   useEffect(() => {
     const fetchRegistros = async () => {
+      if (!API_URL) {
+        console.error("La variable API_URL no está configurada correctamente.");
+        return;
+      }
+
+      console.log("Usando API_URL:", API_URL); // Verifica la URL utilizada
       try {
         const response = await axios.get(`${API_URL}/api/registros`);
-        setRegistros(response.data);
-        calcularEstadisticas(response.data);
+        if (response.data) {
+          setRegistros(response.data);
+          calcularEstadisticas(response.data);
+        } else {
+          console.warn("La respuesta del backend no contiene datos válidos.");
+        }
       } catch (error) {
-        console.error("Error al obtener registros:", error);
+        console.error("Error al obtener registros:", error.message);
       }
     };
     fetchRegistros();
@@ -50,6 +60,11 @@ function Admin() {
   };
 
   const togglePago = async (id) => {
+    if (!API_URL) {
+      console.error("La variable API_URL no está configurada correctamente.");
+      return;
+    }
+
     try {
       const response = await axios.put(`${API_URL}/api/registros/${id}/pago`);
       setRegistros((prevRegistros) =>
@@ -58,7 +73,7 @@ function Admin() {
         )
       );
     } catch (error) {
-      console.error("Error al actualizar pago:", error);
+      console.error("Error al actualizar pago:", error.message);
     }
   };
 
