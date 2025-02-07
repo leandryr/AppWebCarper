@@ -3,7 +3,8 @@ import axios from "axios";
 import styles from "../styles/Formulario.module.css";
 import stylestable from "../styles/Table.module.css";
 
-
+// Configuración de la URL de la API desde las variables de entorno
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Formulario({ setRegistros, setTotal }) {
   const [contacto, setContacto] = useState({ celular: "", email: "" });
@@ -106,7 +107,7 @@ function Formulario({ setRegistros, setTotal }) {
 
     try {
       const payload = { contacto, asistentes, total: total };
-      const response = await axios.post("http://localhost:5000/api/registros", payload);
+      const response = await axios.post(`${API_URL}/api/registros`, payload);
       alert("Formulario enviado con éxito");
       setRegistros && setRegistros(response.data);
     } catch (error) {

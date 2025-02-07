@@ -5,6 +5,8 @@ import stylessta from "../styles/Estadisticas.module.css";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 
+// Configuración de la URL de la API desde las variables de entorno
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Admin() {
   const [registros, setRegistros] = useState([]);
@@ -20,7 +22,7 @@ function Admin() {
   useEffect(() => {
     const fetchRegistros = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/registros");
+        const response = await axios.get(`${API_URL}/api/registros`);
         setRegistros(response.data);
         calcularEstadisticas(response.data);
       } catch (error) {
@@ -49,7 +51,7 @@ function Admin() {
 
   const togglePago = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/registros/${id}/pago`);
+      const response = await axios.put(`${API_URL}/api/registros/${id}/pago`);
       setRegistros((prevRegistros) =>
         prevRegistros.map((registro) =>
           registro._id === id ? { ...registro, pagado: response.data.pagado } : registro
