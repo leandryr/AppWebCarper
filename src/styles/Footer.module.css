@@ -1,0 +1,54 @@
+/* Estilos del pie de página */
+.footer {
+  background-color: #343a40;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+  width: 100%;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  transition: background-color 0.3s ease; /* Animación suave para el fondo */
+}
+
+.footer:hover {
+  background-color: #1d2124; /* Cambio de color al pasar el mouse */
+}
+
+.footer a {
+  color: #4dabf7;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease; /* Animación para los enlaces */
+}
+
+.footer a:hover {
+  color: #6bc1ff; /* Cambio de color al pasar el mouse */
+  text-decoration: underline;
+  transform: translateY(-2px); /* Efecto de levitación */
+}
+
+.footer p {
+  margin: 0.3rem 0;
+  font-size: clamp(0.8rem, 2vw, 0.9rem); /* Ajuste dinámico para pantallas pequeñas */
+  opacity: 0.9; /* Ligera transparencia para el texto */
+  transition: opacity 0.3s ease; /* Animación suave para el texto */
+}
+
+.footer:hover p {
+  opacity: 1; /* Texto más visible al pasar el mouse */
+}
+
+/* Animación de entrada para el pie de página */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.footer {
+  animation: fadeInUp 0.5s ease-out; /* Aplica la animación al cargar */
+}

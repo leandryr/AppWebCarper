@@ -1,0 +1,80 @@
+/* Estilos del encabezado */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  text-align: center;
+  width: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Animación suave */
+}
+
+.header:hover {
+  background-color: #e9ecef; /* Cambio de color al pasar el mouse */
+  border-bottom-color: #ced4da; /* Cambio de color del borde */
+}
+
+.header img {
+  height: 80px;
+  max-width: 100%; /* Asegura que el logo no se desborde */
+  object-fit: contain;
+  transition: transform 0.3s ease; /* Animación para el logo */
+}
+
+.header:hover img {
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+}
+
+.header div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.header h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: clamp(1.5rem, 3vw, 1.8rem); /* Ajuste dinámico del tamaño */
+  text-align: center;
+  width: 100%;
+  word-wrap: break-word;
+  transition: color 0.3s ease; /* Animación para el título */
+}
+
+.header:hover h1 {
+  color: #1a252f; /* Cambio de color al pasar el mouse */
+}
+
+.header span {
+  color: #6c757d;
+  font-size: clamp(1rem, 2.5vw, 1.2rem); /* Ajuste dinámico del tamaño */
+  text-align: center;
+  width: 100%;
+  transition: color 0.3s ease; /* Animación para el subtítulo */
+}
+
+.header:hover span {
+  color: #495057; /* Cambio de color al pasar el mouse */
+}
+
+/* Animación de entrada para el encabezado */
+@keyframes fadeInDown {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.header {
+  animation: fadeInDown 0.5s ease-out; /* Aplica la animación al cargar */
+}

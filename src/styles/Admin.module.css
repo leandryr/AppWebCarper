@@ -1,0 +1,105 @@
+/* Estilos Generales */
+.adminSection {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box; /* Asegura que padding y bordes no desborden */
+}
+
+.stats {
+  margin-bottom: 20px;
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center; /* Centra el contenido */
+}
+
+.stats h2 {
+  margin-bottom: 10px;
+  font-size: clamp(1.2rem, 2vw, 1.5rem); /* Tamaño dinámico del texto */
+}
+
+/* Tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  table-layout: fixed; /* Asegura que las columnas se ajusten */
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word; /* Ajusta el texto en celdas */
+  vertical-align: middle; /* Centra el contenido verticalmente */
+}
+
+.table th {
+  background-color: #4caf50;
+  color: white;
+  font-size: clamp(0.9rem, 1vw, 1rem); /* Tamaño dinámico */
+}
+
+.table td {
+  font-size: clamp(0.8rem, 1vw, 0.9rem); /* Ajuste dinámico */
+}
+
+/* Botón Exportar */
+.btnExport {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: clamp(0.8rem, 1vw, 1rem); /* Tamaño dinámico */
+  transition: background-color 0.3s ease;
+}
+
+.btnExport:hover {
+  background-color: #45a049;
+}
+
+/* Botón Pago */
+.btnPago {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: clamp(0.8rem, 1vw, 0.9rem); /* Tamaño dinámico */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+/* Estado pendiente */
+.pendiente {
+  background-color: red;
+}
+
+.pendiente:hover {
+  background-color: darkred;
+}
+
+/* Estado pagado */
+.pagado {
+  background-color: green;
+}
+
+.pagado:hover {
+  background-color: darkgreen;
+}
+
+/* Estilos Responsivos para Pantallas Pequeñas */
+@media (max-width: 768px) {
+
+  .table thead {
+    display: none; /* Oculta los encabezados */
+  }
+
+  .btnExport,
+  .btnPago {
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem); /* Ajusta el tamaño en pantallas pequeñas */
+    padding: 0.5rem 1rem;
+  }
+}
