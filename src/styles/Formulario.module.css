@@ -248,7 +248,7 @@
 
 @media (max-width: 768px) {
   .labelMobile {
-    display: flex !important;
+    display: flex;
     font-weight: bold;
     color: red;
     background-color: yellow;
@@ -259,8 +259,20 @@
   }
 }
 
+
 @media (min-width: 769px) {
   .labelMobile {
     display: none;
+  }
+}
+/* Ocultar por defecto */
+.ocultarEnGrande {
+  display: none;
+}
+
+/* Mostrar solo en pantallas pequeñas (ancho máximo de 768px) */
+@media screen and (max-width: 768px) {
+  .ocultarEnGrande {
+    display: block;
   }
 }

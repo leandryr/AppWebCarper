@@ -132,3 +132,15 @@
     background-color: #ffffff; /* Fondo blanco */
   }
 }
+
+/* Ocultar por defecto */
+.ocultarEnGrande {
+  display: none;
+}
+
+/* Mostrar solo en pantallas pequeñas (ancho máximo de 768px) */
+@media screen and (max-width: 768px) {
+  .ocultarEnGrande {
+    display: block;
+  }
+}

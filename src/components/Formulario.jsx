@@ -92,18 +92,12 @@ function Formulario({ setRegistros, setTotal }) {
       asistente.transporte === "Bus" &&
       asistente.almuerzo
     ) {
-      baseSubtotal = 45;
-    } else if (
-      asistente.diaSemana === "Domingo" &&
-      asistente.transporte === "Propio" &&
-      asistente.almuerzo
-    ) {
-      baseSubtotal = 25; // Domingo propio con almuerzo
+      return 45;
     }
 
     // Sumar costos adicionales por comida
-    if (asistente.cena) baseSubtotal += 25;
-    if (asistente.almuerzo && baseSubtotal < 45) baseSubtotal += 25;
+    if (asistente.diaSemana !== "Domingo" && asistente.cena) baseSubtotal += 25;
+    if (asistente.almuerzo) baseSubtotal += 25;
 
     return baseSubtotal;
   };
@@ -113,7 +107,6 @@ function Formulario({ setRegistros, setTotal }) {
     setTotalLocal(totalCalculado);
     setTotal && setTotal(totalCalculado);
   };
-
   const validarFormulario = () => {
     if (!contacto.celular || !contacto.email) {
       alert("Por favor, completa los datos de contacto.");
@@ -205,36 +198,37 @@ function Formulario({ setRegistros, setTotal }) {
                 />
               </td>
               <td>
-              <label>La edad debe estar entre 1 y 17 años</label>
-                <input 
-                  type="number"
-                  inputMode="numeric"  // Muestra solo teclado numérico en móviles
-                  pattern="[0-9]*"      // Restringe solo a números
-                  placeholder="Edad (1-17)"
-                  min="1"
-                  max="17"
-                  value={asistente.edad}
-                  onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
-                 
-                  required 
-                />
-              </td>
+  <label className="ocultarEnGrande">La edad debe estar entre 1 y 17 años</label>
+  <input 
+    type="number"
+    inputMode="numeric"
+    pattern="[0-9]*"
+    placeholder="Edad (1-17)"
+    min="1"
+    max="17"
+    value={asistente.edad}
+    onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
+    required 
+  />
+</td>
 
-              <td className={styles.dateContainer}>
-                   <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
-                <input
-                 className={styles.date}
-                     type="date"
-                 value={asistente.fecha}
-                       min="2025-02-22"
-                 max="2025-02-23"
-                onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
-                   required
-                   />
-                    {asistente.fecha !== "2025-02-22" && asistente.fecha !== "2025-02-23" && (
-                        <span className={styles.errorMessage}>⚠ Solo puedes seleccionar Sábado 22 o Domingo 23 de Febrero.</span>
-                   )}
-                </td>
+<td className={styles.dateContainer}>
+  <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
+  <input
+    className={styles.date}
+    type="date"
+    value={asistente.fecha}
+    min="2025-02-22"
+    max="2025-02-23"
+    onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
+    required
+  />
+  {asistente.fecha !== "2025-02-22" && asistente.fecha !== "2025-02-23" && (
+    <span className={`ocultarEnGrande ${styles.errorMessage}`}>
+      ⚠ Solo puedes seleccionar Sábado 22 o Domingo 23 de Febrero.
+    </span>
+  )}
+</td>
 
               <td>
                 <select
@@ -253,6 +247,7 @@ function Formulario({ setRegistros, setTotal }) {
       type="checkbox"
       checked={asistente.cena}
       onChange={(e) => actualizarAsistente(index, "cena", e.target.checked)}
+      disabled={asistente.diaSemana === "Domingo"}
     />
     <span className={styles.slider}></span>
     <span className={styles.label}>Cena</span>

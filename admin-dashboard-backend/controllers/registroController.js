@@ -41,7 +41,14 @@ const enviarCorreo = async (destinatario, registro) => {
           .join("")}
       </ul>
       <h3>Total a pagar: S/ ${registro.total}</h3>
-      <p>Por favor, confirma tu pago enviando el comprobante.</p>
+            <strong>IMPORTANTE:</strong>
+        <p>
+          Para finalizar el registro debes realizar lo siguiente:
+          <br />1. Yapea al 9421-06453 o transfiere el monto a la cuenta BCP:
+          193-344-23-002-008, ambos a nombre de Juan D. Shimabukuro.
+          <br />2. Enviar por Whatsapp al mismo número un pantallazo del Yape o Transferencia y esperar
+          la confirmación.
+        </p>
     `,
   };
 
