@@ -114,7 +114,7 @@ function Formulario({ setRegistros, setTotal }) {
     }
 
     for (const asistente of asistentes) {
-      if (!asistente.nombre || !asistente.edad || !asistente.fecha || !asistente.transporte) {
+      if (!asistente.nombre || !asistente.fecha || !asistente.transporte) {
         alert("Todos los campos de asistentes son obligatorios.");
         return false;
       }
@@ -125,14 +125,25 @@ function Formulario({ setRegistros, setTotal }) {
 
   const enviarFormulario = async () => {
     if (!validarFormulario()) return;
-
+  
     setEnviando(true);
-
+  
     try {
-      const payload = { contacto, asistentes, total: total };
+      // Transformar el campo "edad" vacío en 0
+      const asistentesTransformados = asistentes.map((asistente) => ({
+        ...asistente,
+        edad: asistente.edad === "" ? 0 : asistente.edad, // Convertir "" a 0
+      }));
+  
+      const payload = { contacto, asistentes: asistentesTransformados, total };
+  
+      console.log("Datos enviados al servidor:", payload); // Depuración
+  
       const response = await axios.post(`${API_URL}/api/registros`, payload);
-      alert("Formulario enviado con éxito"); 
-           // 🔹 Reiniciar el formulario después del envío exitoso
+  
+      alert("Formulario enviado con éxito y una copia ha sido enviado a su correo");
+  
+      // Reiniciar el formulario después del envío exitoso
       setContacto({ celular: "", email: "" });
       setAsistentes([]);
       setTotalLocal(0);
@@ -140,8 +151,9 @@ function Formulario({ setRegistros, setTotal }) {
       setRegistros && setRegistros(response.data);
     } catch (error) {
       alert("Error al enviar el formulario");
+      console.error("Error detallado:", error.response || error); // Depuración
     } finally {
-      setEnviando(false); // 🔹 Asegura que el botón vuelva a estar activo
+      setEnviando(false);
     }
   };
 
@@ -150,7 +162,7 @@ function Formulario({ setRegistros, setTotal }) {
     <div className={styles.formSection}>
       <div className={styles.contacto}>
         <label>
-          Celular:
+        Teléfono:
           <input
             type="text"
             inputMode="numeric"  // Muestra solo teclado numérico en móviles
@@ -162,15 +174,19 @@ function Formulario({ setRegistros, setTotal }) {
           />
         </label>
         <label>
-          Email de Confirmación:
-          <input
-            type="email"
-            placeholder="Ingrese su email"
-            value={contacto.email}
-            onChange={(e) => setContacto({ ...contacto, email: e.target.value })}
-            required
-          />
-        </label>
+        Email de Confirmación:
+        <input
+         type="email"
+             placeholder="Ingrese su email"
+             value={contacto.email}
+             onChange={(e) => setContacto({ ...contacto, email: e.target.value })}
+             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+             required
+             onInvalid={(e) => e.target.setCustomValidity("El correo debe contener '@' y terminar en '.com'")}
+             onInput={(e) => e.target.setCustomValidity("")} // Limpia el mensaje al corregir
+           />
+         </label>
+
       </div>
 
       <table className={stylestable.table}>
@@ -189,16 +205,17 @@ function Formulario({ setRegistros, setTotal }) {
           {asistentes.map((asistente, index) => (
             <tr key={index}>
               <td>
+              <label className={styles.ocultarEnGrande}>Ingresa Nombre y Apellido</label>
                 <input
                   type="text"
-                  placeholder="Ingrese el nombre"
+                  placeholder="Ingresa el Nombre y Apellido"
                   value={asistente.nombre}
                   onChange={(e) => actualizarAsistente(index, "nombre", e.target.value)}
                   required
                 />
               </td>
               <td>
-              <label className={styles.ocultarEnGrande}>La edad debe estar entre 1 y 17 años</label>
+              <label className={styles.ocultarEnGrande}>Ingresa edad solo si es menor de 18 años</label>
               <input 
                 type="number"
                  inputMode="numeric"
@@ -208,12 +225,11 @@ function Formulario({ setRegistros, setTotal }) {
                   max="17"
                  value={asistente.edad}
                  onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
-                 required 
                />
              </td>
 
              <td className={styles.dateContainer}>
-               <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
+               <label className={styles.labelMobile}>Selecciona la fecha de salida</label>
                <input
                  className={styles.date}
                  type="date"
@@ -236,12 +252,13 @@ function Formulario({ setRegistros, setTotal }) {
                   onChange={(e) => actualizarAsistente(index, "transporte", e.target.value)}
                   required
                 >
-                  <option value="">Selecciona</option>
+                  <option value="">Selecciona Transporte</option>
                   <option value="Propio">Propio</option>
                   <option value="Bus">Bus</option>
                 </select>
               </td>
               <td>
+              <label className={styles.ocultarEnGrande}>Seleciona Comidas</label>
                <label className={styles.toggle}>
                  <input
                    type="checkbox"
