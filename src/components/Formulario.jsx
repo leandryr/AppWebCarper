@@ -10,6 +10,7 @@ function Formulario({ setRegistros, setTotal }) {
   const [contacto, setContacto] = useState({ celular: "", email: "" });
   const [asistentes, setAsistentes] = useState([]);
   const [total, setTotalLocal] = useState(0);
+  const [enviando, setEnviando] = useState(false);
 
   const agregarAsistente = () => {
     setAsistentes([
@@ -21,18 +22,21 @@ function Formulario({ setRegistros, setTotal }) {
   const actualizarAsistente = (index, campo, valor) => {
     const nuevosAsistentes = [...asistentes];
 
-    if (campo === "edad" && (valor < 1 || valor > 18)) {
-      alert("La edad debe ser un número entre 1 y 18.");
+    if (campo === "edad" && (valor < 0 || valor > 17)) {
+      alert("La edad debe ser un número entre 1 y 17.");
       return;
     }
 
     if (campo === "fecha") {
       if (valor !== "2025-02-22" && valor !== "2025-02-23") {
-        alert("Solo puedes elegir Sábado 22 de Febrero o Domingo 23 de Febrero de 2025.");
+        setTimeout(() => {
+          alert("Solo puedes elegir Sábado 22 de Febrero o Domingo 23 de Febrero de 2025.");
+        }, 1500); // Espera 1.5 segundos antes de mostrar la alerta
         return;
       }
-      nuevosAsistentes[index].diaSemana = obtenerDiaSemana(valor);
+      nuevosAsistentes[index].diaSemana = valor === "2025-02-22" ? "Sábado" : "Domingo";
     }
+    
 
     nuevosAsistentes[index][campo] = valor;
 
@@ -45,37 +49,61 @@ function Formulario({ setRegistros, setTotal }) {
     calcularTotal(nuevosAsistentes);
   };
 
-  const obtenerDiaSemana = (fecha) => {
-    const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    return dias[new Date(fecha).getDay()];
-  };
-
   const calcularSubtotal = (asistente) => {
     let baseSubtotal = 0;
 
+    // Base según día y transporte
     if (asistente.diaSemana === "Sábado") {
       baseSubtotal = asistente.transporte === "Bus" ? 30 : 10;
     } else if (asistente.diaSemana === "Domingo") {
       baseSubtotal = asistente.transporte === "Bus" ? 30 : 0;
     }
 
-    if (asistente.cena) baseSubtotal += 25;
-    if (asistente.almuerzo) baseSubtotal += 25;
-
+    // Descuentos por paquetes
     if (
       asistente.diaSemana === "Sábado" &&
       asistente.transporte === "Bus" &&
       asistente.cena &&
       asistente.almuerzo
     ) {
-      baseSubtotal = 75;
-    } else if (
+      return 75;
+    }
+
+    if (
+      asistente.diaSemana === "Sábado" &&
+      asistente.transporte === "Propio" &&
+      asistente.cena &&
+      asistente.almuerzo
+    ) {
+      return 45;
+    }
+
+    if (
+      asistente.diaSemana === "Sábado" &&
+      asistente.transporte === "Bus" &&
+      asistente.cena &&
+      !asistente.almuerzo
+    ) {
+      return 45;
+    }
+
+    if (
       asistente.diaSemana === "Domingo" &&
       asistente.transporte === "Bus" &&
       asistente.almuerzo
     ) {
       baseSubtotal = 45;
+    } else if (
+      asistente.diaSemana === "Domingo" &&
+      asistente.transporte === "Propio" &&
+      asistente.almuerzo
+    ) {
+      baseSubtotal = 25; // Domingo propio con almuerzo
     }
+
+    // Sumar costos adicionales por comida
+    if (asistente.cena) baseSubtotal += 25;
+    if (asistente.almuerzo && baseSubtotal < 45) baseSubtotal += 25;
 
     return baseSubtotal;
   };
@@ -105,15 +133,25 @@ function Formulario({ setRegistros, setTotal }) {
   const enviarFormulario = async () => {
     if (!validarFormulario()) return;
 
+    setEnviando(true);
+
     try {
       const payload = { contacto, asistentes, total: total };
       const response = await axios.post(`${API_URL}/api/registros`, payload);
-      alert("Formulario enviado con éxito");
+      alert("Formulario enviado con éxito"); 
+           // 🔹 Reiniciar el formulario después del envío exitoso
+      setContacto({ celular: "", email: "" });
+      setAsistentes([]);
+      setTotalLocal(0);
+      setTotal && setTotal(0);
       setRegistros && setRegistros(response.data);
     } catch (error) {
       alert("Error al enviar el formulario");
+    } finally {
+      setEnviando(false); // 🔹 Asegura que el botón vuelva a estar activo
     }
   };
+
 
   return (
     <div className={styles.formSection}>
@@ -122,6 +160,8 @@ function Formulario({ setRegistros, setTotal }) {
           Celular:
           <input
             type="text"
+            inputMode="numeric"  // Muestra solo teclado numérico en móviles
+            pattern="[0-9]*"      // Restringe solo a números
             placeholder="Ingrese su celular"
             value={contacto.celular}
             onChange={(e) => setContacto({ ...contacto, celular: e.target.value })}
@@ -165,26 +205,37 @@ function Formulario({ setRegistros, setTotal }) {
                 />
               </td>
               <td>
-                <input
+              <label>La edad debe estar entre 1 y 17 años</label>
+                <input 
                   type="number"
-                  placeholder="Edad (1-18)"
+                  inputMode="numeric"  // Muestra solo teclado numérico en móviles
+                  pattern="[0-9]*"      // Restringe solo a números
+                  placeholder="Edad (1-17)"
                   min="1"
                   max="17"
                   value={asistente.edad}
                   onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
-                  required
+                 
+                  required 
                 />
               </td>
-              <td>
+
+              <td className={styles.dateContainer}>
+                   <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
                 <input
-                  type="date"
-                  value={asistente.fecha}
-                  min="2025-02-22"
-                  max="2025-02-23"
-                  onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
-                  required
-                />
-              </td>
+                 className={styles.date}
+                     type="date"
+                 value={asistente.fecha}
+                       min="2025-02-22"
+                 max="2025-02-23"
+                onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
+                   required
+                   />
+                    {asistente.fecha !== "2025-02-22" && asistente.fecha !== "2025-02-23" && (
+                        <span className={styles.errorMessage}>⚠ Solo puedes seleccionar Sábado 22 o Domingo 23 de Febrero.</span>
+                   )}
+                </td>
+
               <td>
                 <select
                   value={asistente.transporte}
@@ -202,7 +253,6 @@ function Formulario({ setRegistros, setTotal }) {
       type="checkbox"
       checked={asistente.cena}
       onChange={(e) => actualizarAsistente(index, "cena", e.target.checked)}
-      disabled={asistente.diaSemana === "Domingo"}
     />
     <span className={styles.slider}></span>
     <span className={styles.label}>Cena</span>
@@ -254,9 +304,11 @@ function Formulario({ setRegistros, setTotal }) {
         </p>
       </div>
 
-      <button className={styles.btnEnviar} onClick={enviarFormulario}>
-        ENVIAR
-      </button>
+      <button className={styles.btnEnviar} onClick={enviarFormulario} disabled={enviando}>
+  {enviando ? "Enviando..." : "ENVIAR"}
+</button>
+
+
     </div>
   );
 }

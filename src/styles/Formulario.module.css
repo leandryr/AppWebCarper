@@ -222,3 +222,45 @@
 .toggle input:disabled + .slider:before {
   background-color: #bdbdbd;
 }
+
+.dateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.date {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  -webkit-appearance: none; /* Quita el estilo por defecto de Safari */
+  appearance: none;
+}
+
+.labelMobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .labelMobile {
+    display: flex !important;
+    font-weight: bold;
+    color: red;
+    background-color: yellow;
+    padding: 5px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 769px) {
+  .labelMobile {
+    display: none;
+  }
+}
