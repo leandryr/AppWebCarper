@@ -198,37 +198,37 @@ function Formulario({ setRegistros, setTotal }) {
                 />
               </td>
               <td>
-  <label className="ocultarEnGrande">La edad debe estar entre 1 y 17 años</label>
-  <input 
-    type="number"
-    inputMode="numeric"
-    pattern="[0-9]*"
-    placeholder="Edad (1-17)"
-    min="1"
-    max="17"
-    value={asistente.edad}
-    onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
-    required 
-  />
-</td>
+              <label className={styles.ocultarEnGrande}>La edad debe estar entre 1 y 17 años</label>
+              <input 
+                type="number"
+                 inputMode="numeric"
+                pattern="[0-9]*"
+                 placeholder="Edad (1-17)"
+                 min="1"
+                  max="17"
+                 value={asistente.edad}
+                 onChange={(e) => actualizarAsistente(index, "edad", e.target.value)}
+                 required 
+               />
+             </td>
 
-<td className={styles.dateContainer}>
-  <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
-  <input
-    className={styles.date}
-    type="date"
-    value={asistente.fecha}
-    min="2025-02-22"
-    max="2025-02-23"
-    onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
-    required
-  />
-  {asistente.fecha !== "2025-02-22" && asistente.fecha !== "2025-02-23" && (
-    <span className={`ocultarEnGrande ${styles.errorMessage}`}>
-      ⚠ Solo puedes seleccionar Sábado 22 o Domingo 23 de Febrero.
-    </span>
-  )}
-</td>
+             <td className={styles.dateContainer}>
+               <label className={styles.labelMobile}>Fecha Disponible Sábados 22 y Domingo 23</label>
+               <input
+                 className={styles.date}
+                 type="date"
+                 value={asistente.fecha}
+                 min="2025-02-22"
+                 max="2025-02-23"
+                 onChange={(e) => actualizarAsistente(index, "fecha", e.target.value)}
+                 required
+               />
+               {asistente.fecha !== "2025-02-22" && asistente.fecha !== "2025-02-23" && (
+                 <span className={`${styles.ocultarEnGrande} ${styles.errorMessage}`}>
+               ⚠ Solo puedes seleccionar Sábado 22 o Domingo 23 de Febrero.
+             </span>
+               )}
+             </td>
 
               <td>
                 <select
@@ -242,26 +242,26 @@ function Formulario({ setRegistros, setTotal }) {
                 </select>
               </td>
               <td>
-  <label className={styles.toggle}>
-    <input
-      type="checkbox"
-      checked={asistente.cena}
-      onChange={(e) => actualizarAsistente(index, "cena", e.target.checked)}
-      disabled={asistente.diaSemana === "Domingo"}
-    />
-    <span className={styles.slider}></span>
-    <span className={styles.label}>Cena</span>
-  </label>
-  <label className={styles.toggle}>
-    <input
-      type="checkbox"
-      checked={asistente.almuerzo}
-      onChange={(e) => actualizarAsistente(index, "almuerzo", e.target.checked)}
-    />
-    <span className={styles.slider}></span>
-    <span className={styles.label}>Almuerzo</span>
-  </label>
-</td>
+               <label className={styles.toggle}>
+                 <input
+                   type="checkbox"
+                   checked={asistente.cena}
+                   onChange={(e) => actualizarAsistente(index, "cena", e.target.checked)}
+                   disabled={asistente.diaSemana === "Domingo"}
+                 />
+                 <span className={styles.slider}></span>
+                 <span className={styles.label}>Cena</span>
+               </label>
+               <label className={styles.toggle}>
+                 <input
+                   type="checkbox"
+                   checked={asistente.almuerzo}
+                   onChange={(e) => actualizarAsistente(index, "almuerzo", e.target.checked)}
+                 />
+                 <span className={styles.slider}></span>
+                 <span className={styles.label}>Almuerzo</span>
+               </label>
+             </td>
 
               <td>S/ {asistente.subtotal}</td>
               <td>
@@ -299,9 +299,9 @@ function Formulario({ setRegistros, setTotal }) {
         </p>
       </div>
 
-      <button className={styles.btnEnviar} onClick={enviarFormulario} disabled={enviando}>
-  {enviando ? "Enviando..." : "ENVIAR"}
-</button>
+             <button className={styles.btnEnviar} onClick={enviarFormulario} disabled={enviando}>
+               {enviando ? "Enviando..." : "ENVIAR"}
+             </button>
 
 
     </div>
