@@ -1,105 +1,163 @@
-/* Estilos Generales */
+/* 🔹 Estilos Generales */
 .adminSection {
+  padding: 5px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 🔹 Mensajes de Carga/Error */
+.loading, .error {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* 🔹 Formulario de Login */
+.login {
+  text-align: center;
+  max-width: 300px; /* Ajuste normal */
+  margin: 50px auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box; /* Asegura que padding y bordes no desborden */
-}
-
-.stats {
-  margin-bottom: 20px;
-  background-color: #f4f4f4;
-  padding: 15px;
+  background: white;
   border-radius: 8px;
-  text-align: center; /* Centra el contenido */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-.stats h2 {
-  margin-bottom: 10px;
-  font-size: clamp(1.2rem, 2vw, 1.5rem); /* Tamaño dinámico del texto */
+/* 🔹 Inputs del formulario */
+.login input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
-/* Tabla */
+/* 🔹 Botón de login */
+.login button {
+  width: 100%;
+  padding: 10px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.login button:hover {
+  background: #388E3C;
+}
+
+
+/* 🔹 Tablas */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  table-layout: fixed; /* Asegura que las columnas se ajusten */
+  margin-top: 10px;
 }
 
-.table th,
-.table td {
+.table th, .table td {
+  padding: 5px;
   border: 1px solid #ddd;
-  padding: 8px;
   text-align: center;
-  word-wrap: break-word; /* Ajusta el texto en celdas */
-  vertical-align: middle; /* Centra el contenido verticalmente */
+  font-size: 0.7rem;
+  white-space: nowrap;
 }
 
 .table th {
-  background-color: #4caf50;
-  color: white;
-  font-size: clamp(0.9rem, 1vw, 1rem); /* Tamaño dinámico */
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 
-.table td {
-  font-size: clamp(0.8rem, 1vw, 0.9rem); /* Ajuste dinámico */
-}
-
-/* Botón Exportar */
-.btnExport {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: clamp(0.8rem, 1vw, 1rem); /* Tamaño dinámico */
-  transition: background-color 0.3s ease;
-}
-
-.btnExport:hover {
-  background-color: #45a049;
-}
-
-/* Botón Pago */
+/* 🔹 Botón de Pago */
 .btnPago {
-  padding: 8px 12px;
-  border: none;
+  padding: 4px 6px;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: clamp(0.8rem, 1vw, 0.9rem); /* Tamaño dinámico */
-  color: white;
-  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  transition: background-color 0.2s ease;
 }
 
-/* Estado pendiente */
-.pendiente {
-  background-color: red;
-}
-
-.pendiente:hover {
-  background-color: darkred;
-}
-
-/* Estado pagado */
 .pagado {
-  background-color: green;
+  background-color: #4CAF50;
+  color: white;
 }
 
-.pagado:hover {
-  background-color: darkgreen;
+.pendiente {
+  background-color: #f44336;
+  color: white;
 }
 
-/* Estilos Responsivos para Pantallas Pequeñas */
+/* 🔹 Botón de Exportar */
+.btnExport {
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+/* 🔹 Responsivo: Estilos para Móviles */
 @media (max-width: 768px) {
-
-  .table thead {
-    display: none; /* Oculta los encabezados */
+  .adminSection {
+    padding: 2px;
   }
 
-  .btnExport,
+  .loading, .error {
+    font-size: 0.8rem;
+  }
+
+  /* Reducir tamaño de fuente y padding en la tabla */
+  .table th, .table td {
+    padding: 4px;
+    font-size: 0.6rem;
+  }
+
+  /* Botón de pago aún más compacto en móviles */
   .btnPago {
-    font-size: clamp(0.8rem, 1.2vw, 0.9rem); /* Ajusta el tamaño en pantallas pequeñas */
-    padding: 0.5rem 1rem;
+    padding: 3px 5px;
+    font-size: 0.6rem;
+  }
+
+  /* Botón de exportar más compacto */
+  .btnExport {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  /* Login aún más pequeño */
+  .login {
+    max-width: 200px;
+    padding: 8px;
+  }
+
+  .login input {
+    padding: 4px;
+    font-size: 0.7rem;
+  }
+
+  .login button {
+    padding: 4px;
+    font-size: 0.7rem;
+  }
+  .login {
+    max-width: 260px; /* Más compacto en móviles */
+    padding: 15px;
+  }
+
+  .login input {
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+
+  .login button {
+    font-size: 0.9rem;
+    padding: 8px;
   }
 }
