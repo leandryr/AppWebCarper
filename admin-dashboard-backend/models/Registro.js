@@ -14,10 +14,11 @@ const RegistroSchema = new mongoose.Schema({
       cena: { type: Boolean, required: true },
       almuerzo: { type: Boolean, required: true },
       subtotal: { type: Number, required: true },
+      pagado: { type: Boolean, default: false },
     },
   ],
   total: { type: Number, required: true },
-  pagado: { type: Boolean, default: false }, // Nuevo campo de pago
+
 });
 
 module.exports = mongoose.model("Registro", RegistroSchema);
