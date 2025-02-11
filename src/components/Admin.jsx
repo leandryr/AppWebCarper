@@ -93,16 +93,18 @@ function Admin() {
       
       // Invertir el estado de pagado
       asistente.pagado = !asistente.pagado;
-
-      // Actualizar en backend
+  
+      // Enviar el índice del asistente en el cuerpo de la solicitud
       await axios.put(`${API_URL}/api/registros/${registroId}/pago`, { asistenteIndex });
-
+  
+      // Actualizar los registros localmente
       setRegistros(updatedRegistros);
     } catch (error) {
       console.error("Error al actualizar pago:", error.message);
       setError("Error al actualizar el estado de pago");
     }
   };
+  
 
   const exportarExcel = () => {
     const registrosOrdenados = registros.flatMap(registro =>
