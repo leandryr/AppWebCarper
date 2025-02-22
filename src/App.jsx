@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useState } from "react";
-import Formulario from "./components/Formulario";
+import Index from "./components/Index";
 import Admin from "./components/Admin";
 import logoCarper from "./assets/logo-carper.png";
 import styles from "./styles/Header.module.css";
@@ -22,8 +22,10 @@ function App() {
         </header>
 
         <Routes>
-          <Route path="/" element={<Formulario setRegistros={setRegistros} setTotal={setTotal} />} />
+          <Route path="/" element={<Index />} />  {/* Nuevo Index con mensaje */}
           <Route path="/admin" element={<Admin />} />
+          <Route path="/formulario" element={<Navigate to="/" />} />  {/* Bloquea el formulario */}
+          <Route path="*" element={<Navigate to="/" />} />  {/* Redirige cualquier otra ruta al Index */}
         </Routes>
 
         <footer className={footerStyles.footer}>
@@ -31,7 +33,7 @@ function App() {
             <p>
               Propiedad de Carper | Desarrollado por{" "}
               <a href="https://rivasdev.com" target="_blank" rel="noopener noreferrer">
-                RivaDev
+                RivasDev
               </a>
             </p>
             <p>2025. Todos los derechos reservados</p>
